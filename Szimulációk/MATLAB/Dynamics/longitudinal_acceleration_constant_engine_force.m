@@ -12,11 +12,11 @@
                     <=> F_engine - F_drag - F_roll = m * a
                     <=> a = (F_engine - F_drag - F_roll) / m
 
-    F_engine                        Engine traction force (const.)
-    F_drag = 0.5 * C_d * A * v^2    Aerodynamic drag
-    F_roll = C_r * m * g            Rolling resistance
-    a                               Resulting acceleration
-    v(t) = v(t - 1) + a * dt        Euler integration to update speed
+    F_engine                            Engine traction force (const.)
+    F_drag = 0.5 * C_d * rho * A * v^2  Aerodynamic drag
+    F_roll = C_r * m * g                Rolling resistance
+    a                                   Resulting acceleration
+    v(t) = v(t - 1) + a * dt            Euler integration to update speed
 
 %}
 
