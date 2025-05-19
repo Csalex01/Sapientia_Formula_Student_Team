@@ -92,15 +92,12 @@ Q = [1e-4 0; 0 1e-4];  % Process noise covariance
 R = noise_std^2;       % Measurement noise covariance
 
 x_est = zeros(2, length(t));  % Estimated states
-
 P = eye(2);                   % Initial estimation error covariance
-P_hist = zeros(1, length(t));
-P_hist(1) = trace(P);
 
 %% Simulation loop
 
 for k = 2:length(t)
-
+    
     % True system simulation
     a(k) = F(k - 1) / m;
     v(k) = v(k - 1) + a(k) * dt;
@@ -117,8 +114,6 @@ for k = 2:length(t)
     K = P_pred * H' / (H * P_pred * H' + R);
     x_est(:, k) = x_pred + K * (x_measured(k) - H * x_pred);
     P = (eye(2) - K * H) * P_pred;
-    P_hist(k) = trace(P);
-    
 end
 
 %% Estimated quantities
@@ -233,18 +228,3 @@ grid on;
 grid minor;
 
 title("INPUT: Ideal Force [N]");
-
-% Error covariance matrix
-
-fig = figure("Color", "w");
-fig.Position(3:4) = [1000 800];
-
-plot(t, P_hist, "r-", "LineWidth", 2.0);
-
-grid on;
-grid minor;
-
-title("Error Covariance Matrix Trace");
-
-xlabel("Time [s]");
-ylabel("tr(P_k)");
